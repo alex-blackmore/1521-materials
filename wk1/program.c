@@ -3,3 +3,5 @@
 int main(void) {
     printf("I love COMP1521\n");
 }
+
+// objdump -d program (to sanely view executable)
