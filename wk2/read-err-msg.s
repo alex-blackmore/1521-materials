@@ -4,3 +4,4 @@ main:
 	syscall
 
 	jr	$ra
+

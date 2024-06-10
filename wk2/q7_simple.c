@@ -12,16 +12,15 @@ int main(void) {
     //     printf("%d\n", x);
     //     x += 3;
     // }
-
-third_print_init:;
+third_num_init:;
     int x = 24;
-third_print_cond:
-    if (x >= 42) goto third_print_end;
-third_print_body:
+third_num_cond:
+    if (x >= 42) goto third_num_end;
+third_num_body:
     printf("%d\n", x);
-third_print_step:
+third_num_step:
     x += 3;
-    goto third_print_cond;
-third_print_end:
+    goto third_num_cond;
+third_num_end:
     return 0;
 }

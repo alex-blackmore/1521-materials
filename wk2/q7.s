@@ -1,10 +1,10 @@
 main:
 	# $t0 = x
-third_print_init:
+third_num_init:
 	li	$t0,	24
-third_print_cond:
-	bge	$t0,	42,	third_print_end
-third_print_body:
+third_num_cond:
+	bge	$t0,	42,	third_num_end
+third_num_body:
 	li	$v0,	1
 	move	$a0,	$t0
 	syscall
@@ -12,10 +12,10 @@ third_print_body:
 	li	$v0,	11
 	li	$a0,	'\n'
 	syscall
-third_print_step:
+third_num_step:
 	add	$t0,	$t0,	3
-	b	third_print_cond
-third_print_end:
+	b	third_num_cond
+third_num_end:
 
 	li	$v0,	0
 	jr	$ra
