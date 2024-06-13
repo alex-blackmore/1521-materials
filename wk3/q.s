@@ -14,7 +14,7 @@ loop_body:
 	bgez	$t2, loop_step
 
 	add	$t2,	$t2,	42
-	sw	$t2,	array($t1)	# IMPORTANT!!! update array[i] to new value in $t2
+	sw	$t2,	array($t1)	# IMPORTANT!!! update array[i] with new value in $t2
 
 	# q6
 	mul	$t1,	$t0,	4
