@@ -24,19 +24,26 @@ void print_bits(uint8_t control) {
 }
 
 uint8_t check_ink(uint8_t control) {
-
+    uint8_t mask = NO_INK;
+    uint8_t check = control & mask;
+    if (check == 1) {
+        printf("Out of ink!\n");
+    }
+    return control;
 }
 
 uint8_t replace_ink(uint8_t control) {
-
+    uint8_t mask = ~NO_INK; // 0b1111 1110
+    return control & mask;
 }
 
 uint8_t set_colour_and_scan(uint8_t control) {
-
+    uint8_t colour_set = control | COLOUR;
+    return colour_set | SELECT_SCAN; 
 }
 
 uint8_t toggle_print_scan(uint8_t control) {
-
+    
 }
 
 uint8_t check_ready(uint8_t control) {
