@@ -3,6 +3,7 @@
 
 int global_total = 0;
 // initialise a lock
+pthread_mutex_t global_total_lock = PTHREAD_MUTEX_INITIALIZER;
 
 void *add_5000_to_counter(void *data) {
     for (int i = 0; i < 5000; i++) {
@@ -10,9 +11,9 @@ void *add_5000_to_counter(void *data) {
         nanosleep (&(struct timespec){.tv_nsec = 1}, NULL);
         
         // increment the global total by 1
-        // obtain the lock
+        pthread_mutex_lock(&global_total_lock);
         global_total++;
-        // release the lock
+        pthread_mutex_unlock(&global_total_lock);
     }
 
     return NULL;

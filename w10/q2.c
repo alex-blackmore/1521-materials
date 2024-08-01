@@ -11,7 +11,9 @@
 extern char **environ;
 
 void spawn_and_wait(char **args) {
-    // TODO
+    pid_t pid;
+    posix_spawn(&pid, args[0], NULL, NULL, args, environ);
+    waitpid(pid, NULL, 0);
 }
 
 int main(int argc, char *argv[]) {
