@@ -1,3 +1,4 @@
+	.text
 main:
 	# $t0 = x
 	# $t1 = y
