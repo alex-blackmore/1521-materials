@@ -1,47 +1,60 @@
 N_SIZE = 10
+	
 	.text
 main:
+	# $t0 = i
 
-loop_init:
-	li	$t0,	0
-loop_cond:
-	bge	$t0,	N_SIZE,	loop_end
-loop_body:
-	# q7
 
-	mul	$t1,	$t0,	4
-	lw	$t2,	array($t1)	# read from array[i] into $t2
-	bgez	$t2, loop_step
+main__add_loop_init:
+	li	$t0, 0
+main__add_loop_cond:
+	bge	$t0, N_SIZE, main__add_loop_end
+main__add_loop_body:
+	mul	$t1, $t0, 4
+	lw	$t2, numbers($t1)
 
-	add	$t2,	$t2,	42
-	sw	$t2,	array($t1)	# IMPORTANT!!! update array[i] with new value in $t2
+	bgez	$t2, main__add_loop_step
 
-	# q6
-	mul	$t1,	$t0,	4
-	lw	$a0,	array($t1)	# read from array[i] into $a0 for print_int syscall
-	li	$v0,	1
+	add	$t2, $t2, 42
+	sw	$t2, numbers($t1)
+
+main__add_loop_step:
+	add	$t0, $t0, 1
+	b	main__add_loop_cond
+main__add_loop_end:
+
+
+main__read_loop_init:
+	li	$t0, 0
+main__read_loop_cond:
+	bge	$t0, N_SIZE, main__read_loop_end
+main__read_loop_body:
+	# # q5
+	# li	$v0, 5
+	# syscall
+	# # numbers + $t0 * 4
+	# mul	$t1, $t0, 4 # $t1 = $t0 * 4
+	# la	$t2, numbers
+	# add	$t1, $t1, $t2
+	# sw	$v0, ($t1)
+	mul	$t1, $t0, 4
+	lw	$a0, numbers($t1)
+
+	li	$v0, 1
 	syscall
 
-	li	$a0,	'\n'
-	li	$v0,	11
+	li	$v0, 11
+	li	$a0, '\n'
 	syscall
 
-	#q5
-	li	$v0,	5
-	syscall
+main__read_loop_step:
+	add	$t0, $t0, 1
+	b	main__read_loop_cond
+main__read_loop_end:
 
-	mul	$t1,	$t0,	4
-	sw	$v0,	array($t1)	# save $v0 to array[i]
-
-loop_step:
-	add	$t0,	$t0,	1
-	b	loop_cond
-loop_end:
-
-	li	$v0,	0
+	li	$v0, 0
 	jr	$ra
 
 	.data
-array:
+numbers:
 	.word 0, 1, 2, -3, 4, -5, 6, -7, 8, 9
-	

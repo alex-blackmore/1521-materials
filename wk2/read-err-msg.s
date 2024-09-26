@@ -4,3 +4,5 @@ main:
 	syscall
 
 
+	li	$v0,	0
+	jr	$ra
