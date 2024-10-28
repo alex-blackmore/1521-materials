@@ -31,28 +31,29 @@ uint8_t mark_reading(uint8_t control) {
 }
 
 uint8_t mark_no_writing(uint8_t control) {
-    return control & ~WRITING;
+    uint8_t mask = ~WRITING;
+    return control & mask;
 }
 
 uint8_t mark_writing(uint8_t control) {
-    return control | WRITING;
+    uint8_t mask = WRITING;
+    return control | mask;
 }
 
 uint8_t mark_unlocked(uint8_t control) {
-    return control & ~LOCKED;
+
 }
 
 uint8_t mark_locked(uint8_t control) {
-    return control | LOCKED;
+
 }
 
 uint8_t switch_read_to_write(uint8_t control) {
-    uint8_t temp = mark_writing(control);
-    return mark_no_reading(temp);
+
 }
 
 uint8_t switch_write_to_read(uint8_t control) {
-    return mark_no_writing(mark_reading(control));
+
 }
 
 int main(void) {
@@ -65,11 +66,3 @@ int main(void) {
     ctrl = switch_read_to_write(ctrl);
     print_bits(ctrl); // 00010010
 }
-
-/*
-
-
-
-
-
-*/

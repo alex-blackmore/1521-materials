@@ -12,7 +12,7 @@
 #define FLAG_ROWS 6
 #define FLAG_COLS 12
 
-char flag[FLAG_ROWS][FLAG_COLS] = {
+char flag[FLAG_ROWS][FLAG_COLS] = { // 6 x 12 element arrays
     {'#', '#', '#', '#', '#', '.', '.', '#', '#', '#', '#', '#'},
     {'#', '#', '#', '#', '#', '.', '.', '#', '#', '#', '#', '#'},
     {'.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'},
