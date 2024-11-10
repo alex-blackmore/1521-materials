@@ -6,19 +6,22 @@
 #define FILENAME ".diary"
 
 int main(int argc, char *argv[]) {
-    char *home_pathname = getenv("HOME");
     // Construct pathname
     // $HOME / .diary
-    char pathname[1024];
-    snprintf(pathname, 1024, "%s/%s", home_pathname, FILENAME);
-    FILE *diary = fopen(pathname , "r");
-    if (diary == NULL) {
-        perror("fopen");
+    char pathname[256];
+    char *home = getenv("HOME");
+
+    snprintf(pathname, 256, "%s/.diary", home);
+
+    FILE *diary_file = fopen(pathname, "r");
+
+    int byte = fgetc(diary_file);
+    while (byte != EOF) {
+        fputc(byte, stdout);
+        byte = fgetc(diary_file);
     }
-    int c;
-    while ((c = fgetc(diary)) != EOF) {
-        putchar(c);
-    }
-    fclose(diary);
+
+    fclose(diary_file);
+
     return 0;
 }

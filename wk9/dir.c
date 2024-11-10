@@ -8,8 +8,8 @@
 
 void traverse_and_list(char *path);
 
-int main(void) {
-    traverse_and_list(".");
+int main(int argc, char **argv) {
+    traverse_and_list(argv[1]);
 }
 
 void traverse_and_list(char *path) {

@@ -1,0 +1,23 @@
+LOCK_A=init_lock
+LOCK_B=init_lock
+aqr (aquire)
+rel (release)
+
+|        Thread 1       |        Thread 2        |
+|   aqr   LOCK_A        |                        |
+|     -SUCCESS-         |                        |
+|         ----->        |                        |
+|                       |    aqr   LOCK_B        |
+|                       |       -SUCCESS-        |
+|                       |        <-----          |
+|   aqr   LOCK_B        |                        |
+|     -FAILURE-         |                        |
+|         ----->        |                        |
+|                       |    aqr   LOCK_A        |
+|                       |       -FAILURE-        |
+|                       |        <-----          |
+|         ----->        |                        |
+|                       |        <-----          |
+|         ----->        |                        |
+...
+

@@ -8,17 +8,18 @@
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
-        fprintf(stderr, "Usage: ./q5 [filename]");
+        fprintf(stderr, "require 2 args please\n");
         exit(1);
     }
-    char *pathname = argv[1];
-    FILE *file = fopen(pathname, "r");
-    
-    int x;
-    while(fscanf(file, "%x", &x) != EOF) {
-        int8_t byte = x & 0xFF;
-        printf("%d\n", byte);
+
+    FILE *fp = fopen(argv[1], "r");
+    // read a number
+    uint32_t val;
+    while (fscanf(fp, " %x ", &val) != EOF) {
+        // get lsb
+        uint8_t lsb = val & 0xFF;
+        printf("%d\n", lsb);
     }
-    fclose(file);
+    fclose(fp);
     return 0;
 }

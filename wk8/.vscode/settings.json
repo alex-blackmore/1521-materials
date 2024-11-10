@@ -3,6 +3,8 @@
         "*.css": "tailwindcss",
         "ctype.h": "c",
         "stat.h": "c",
-        "stdint.h": "c"
+        "stdint.h": "c",
+        "stdlib.h": "c",
+        "stdio.h": "c"
     }
 }

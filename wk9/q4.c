@@ -18,22 +18,26 @@ int main(int argc, char *argv[]) {
 // chmod a file if publically-writeable
 
 void chmod_if_needed(char *pathname) {
+    // stat the file
     struct stat s;
-    int code = stat(pathname, &s);
-    if (code != 0) {
+    int return_code = stat(pathname, &s);
+    if (return_code != 0) {
         perror("stat");
+        exit(1);
     }
-    if (s.st_mode & S_IWOTH) { // 0000 000 000 010
-        // Remove write permissions
-        uint32_t new_mode = s.st_mode & ~S_IWOTH;
-        // Change the permissions
-        printf("Removing write permission from file %s\n", pathname);
-        printf("Old mode: %x\n", s.st_mode);
-        printf("New mode: %x\n", new_mode);
-        code = chmod(pathname, new_mode);
-        if (code != 0) {
+    // chmod
+    if (s.st_mode & S_IWOTH) {
+        // bit is set
+        printf("removing public write from %s\n", pathname);
+        mode_t new_mode = s.st_mode & ~S_IWOTH; // write 0 to pwrite bit
+        return_code = chmod(pathname, new_mode);
+        if (return_code != 0) {
             perror("chmod");
+            exit(1);
         }
+    } else {
+        // bit is not set
+        printf("%s is not publically writable\n", pathname);
     }
     return;
 }

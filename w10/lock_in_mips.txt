@@ -1,0 +1,27 @@
+LOCK=init_lock
+aqr (aquire)
+rel (release)
+
+|        Thread 1       |        Thread 2        |
+|   aqr   LOCK          |                        |
+|     -SUCCESS-         |                        |
+|   lw    $t0, global   |                        |
+|        ----->         |      aqr    LOCK       |
+|                       |      -FAILURE-         |
+|                       |        <-----          |
+|   addi $t0, $t0, 1    |                        |
+|   sw    $t0, global   |                        |
+|   rel   LOCK          |                        |
+|         ----->        |      aqr LOCK          |
+|                       |     -SUCCESS-          |
+|                       |    lw    $t0, global   |
+|                       |    addi $t0, $t0, 1    |
+|                       |    sw    $t0, global   |
+|                       |    rel   LOCK          |
+|                       |                        |
+
+
+
+
+
+

@@ -1,0 +1,8 @@
+
+|        Thread 1       |        Thread 2        |
+|   addone    global    |                        |
+|         ----->        |                        |
+|                       |   addone    global     |
+|                       |       <------          |
+
+

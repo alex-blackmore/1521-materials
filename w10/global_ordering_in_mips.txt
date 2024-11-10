@@ -1,0 +1,26 @@
+LOCK_A=init_lock
+LOCK_B=init_lock
+aqr (aquire)
+rel (release)
+
+GLOBAL ORDERING: LOCK_A then LOCK_B
+
+|        Thread 1       |        Thread 2        |
+|   aqr   LOCK_A        |                        |
+|     -SUCCESS-         |                        |
+|         ----->        |                        |
+|                       |    aqr   LOCK_A        |
+|                       |       -FAILURE-        |
+|                       |        <-----          |
+|   aqr   LOCK_B        |                        |
+|     -SUCCESS-         |                        |
+|        ...            |                        |
+|   rel   LOCK_B        |                        |
+|   rel   LOCK_A        |                        |
+|         ----->        |                        |
+|                       |   aqr   LOCK_A         |
+|                       |     -SUCCESS-          |
+|                       |   aqr   LOCK_B         |
+|                       |     -SUCCESS-          |
+...
+

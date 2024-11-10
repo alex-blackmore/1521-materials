@@ -1,0 +1,26 @@
+
+
+child_pid = fork()
+
+
+|     ---CHILD PROCESS---      |      ---PARENT PROCESS---      |
+|                              |                                |
+|      if (child_pid == 0)     |            else                |
+|                              |                                |
+|         child_pid = 0        |       child_pid = 12446        |
+|          execve(...)         |     waitpid(12446, NULL, 0)    |
+|                              |         printf(...)            |
+
+
+
+    
+    if (child_pid == 0) {
+        // this is the child
+        char * const argv[] = {"/bin/echo", "hello", "world", NULL};
+        execve("/bin/echo", argv, NULL);
+    } else {
+        // this is the parent
+        waitpid(child_pid, NULL, 0);
+        printf("child process finished executing\n");
+    }
+
