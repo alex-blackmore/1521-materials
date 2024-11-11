@@ -5,7 +5,7 @@
 
 void *thread_run(void *data) {
     // print "feed my input" once a second
-    while (true) {
+    while (1) {
         printf("feed me input\n");
         sleep(1);
     }
@@ -17,9 +17,11 @@ int main(void) {
     pthread_t pthread;
     pthread_create(&pthread, NULL, thread_run, NULL);
     char line[1024];
-    while (fgets(line, 1024, stdin)) {
-        printf("you entered: %s\n", line);
+    while (2) {
+        fgets(line, 1024, stdin);
+        fputs(line, stdout);
     }
+    
     pthread_cancel(pthread);
     return 0;
 }

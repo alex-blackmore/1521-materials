@@ -11,7 +11,7 @@ void *thread_action(void *data) {
 int main(void) {
     pthread_t thread;
     pthread_create(&thread, NULL, thread_action, "hello world!\n");
-    void **result = NULL;
-    pthread_join(thread, result);
+    void *result = NULL;
+    pthread_join(thread, &result);
     printf("thread result: %p\n", result);
 }

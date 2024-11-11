@@ -2,9 +2,9 @@
 #include <pthread.h>
 
 void *thread_run(void *data) {
-    printf("Hello from thread!\n");
+    printf("I LOVE MIPS!\n");
 
-    return NULL;
+    return "MIPS";
 }
 
 int main(void) {
@@ -16,6 +16,8 @@ int main(void) {
         NULL        // data we want to pass to the thread -- this will be
                     // given in the `void *data` argument above
     );
-    pthread_join(thread, NULL);
+    char *str;
+    pthread_join(thread, (void**) &str);
+    printf("%s\n", str);
     return 0;
 }

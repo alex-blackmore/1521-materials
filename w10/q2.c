@@ -10,25 +10,26 @@
 
 extern char **environ;
 
-void spawn_and_wait(char **args) {
+void spawn_and_wait(char *args[]) {
     pid_t pid;
     posix_spawn(&pid, args[0], NULL, NULL, args, environ);
     waitpid(pid, NULL, 0);
 }
 
 int main(int argc, char *argv[]) {
-    char *date_argv[] = {"/bin/date", "+%d-%m-%Y", NULL};
-    spawn_and_wait(date_argv);
-
-    char *time_argv[] = {"/bin/date", "+%T", NULL};
-    spawn_and_wait(time_argv);
-
-    char *user_argv[] = {"/usr/bin/whoami", NULL};
-    spawn_and_wait(user_argv);
-
-    char *hostname_argv[] = {"/bin/hostname", "-f", NULL};
-    spawn_and_wait(hostname_argv);
-
-    char *working_dir_argv[] = {"/usr/bin/realpath", ".", NULL};
-    spawn_and_wait(working_dir_argv);
+    // "date", "+%d-%m-%Y"
+    char *argv1[] = {"/bin/date", "+%d-%m-%Y", NULL};
+    spawn_and_wait(argv1);
+    // "date", "+%T"
+    char *argv2[] = {"/bin/date", "+%T", NULL};
+    spawn_and_wait(argv2);
+    // "whoami"
+    char *argv3[] = {"/usr/bin/whoami", NULL};
+    spawn_and_wait(argv3);
+    // "hostname"
+    char *argv4[] = {"/bin/hostname", NULL};
+    spawn_and_wait(argv4);
+    // "realpath ."
+    char *argv5[] = {"/bin/realpath", ".", NULL};
+    spawn_and_wait(argv5);
 }
