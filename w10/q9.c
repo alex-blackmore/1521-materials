@@ -11,9 +11,12 @@ void *add_5000_to_counter(void *data) {
         nanosleep (&(struct timespec){.tv_nsec = 1}, NULL);
         
         // increment the global total by 1
+        // aquire lock
         pthread_mutex_lock(&lock);
         global_total++;
+        // release lock
         pthread_mutex_unlock(&lock);
+
     }
 
     return NULL;

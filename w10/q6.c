@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <pthread.h>
+#include <stdlib.h>
 
 void *thread_run(void *data) {
     printf("I LOVE MIPS!\n");
-
-    return "MIPS";
+    int *ret = malloc(sizeof(int));
+    *ret = 0;
+    return ret;
 }
 
 int main(void) {
@@ -16,8 +18,6 @@ int main(void) {
         NULL        // data we want to pass to the thread -- this will be
                     // given in the `void *data` argument above
     );
-    char *str;
-    pthread_join(thread, (void**) &str);
-    printf("%s\n", str);
+    pthread_cancel(thread);
     return 0;
 }

@@ -10,7 +10,7 @@ void *add_5000_to_counter(void *data) {
 		nanosleep (&(struct timespec){.tv_nsec = 1}, NULL);
         
         // increment the global total by 1
-        global_total++;
+        atomic_fetch_add(&global_total, 1);
     }
 
     return NULL;
