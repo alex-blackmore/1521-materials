@@ -5,22 +5,17 @@ int main(void) {
     printf("Enter a number: ");
     scanf("%d", &x);
 
-    // if (x > 100 && x < 1000) {
-    //     printf("medium\n");
-    // } else {
-    //     printf("small/big\n");
-    // }
-size_x_gt_100:
-    if (x > 100) goto size_x_lt_1000;
-    goto size_else;
-size_x_lt_1000:
-    if (x < 1000) goto size_body;
-    goto size_else;
-size_body:
+medium_cond1:;
+    int z;
+    if (x > 100) goto medium_cond2;
+    goto medium_else;
+medium_cond2:
+    if (x < 1000) goto medium_body;
+    goto medium_else;
+medium_body:
     printf("medium\n");
-    goto size_end;
-size_else:
+    goto medium_end;
+medium_else:
     printf("small/big\n");
-size_end:
-    return 0;
+medium_end:;
 }

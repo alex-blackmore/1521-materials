@@ -4,19 +4,16 @@
 int main(void) {
     // This 'for' loop is effectively equivalent to a while loop.
     // i.e. it is a while loop with a counter built in.
-    // for (int x = 24; x < 42; x += 3) {
-    //     printf("%d\n", x);
-    // }
-
-third_init:;
+loop_init:
+    ;
     int x = 24;
-third_cond:
-    if (x >= 42) goto third_end;
-third_body:
+loop_cond:
+    if (x >= 42) goto loop_end;
+loop_body:
     printf("%d\n", x);
-third_step:
+loop_step:
     x += 3;
-    goto third_cond;
-third_end:
-    return 0;
+    goto loop_cond;
+loop_end:
+    ;
 }

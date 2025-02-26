@@ -3,6 +3,5 @@ main:
 	li	$a0,	42
 	syscall
 
-
-	li	$v0,	0
-	jr	$ra
+	# MY COde DOESNT WORK
+	jr $ra
