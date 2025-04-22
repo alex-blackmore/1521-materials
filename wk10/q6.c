@@ -18,6 +18,5 @@ int main(void) {
         NULL        // data we want to pass to the thread -- this will be
                     // given in the `void *data` argument above
     );
-    pthread_cancel(thread);
     return 0;
 }

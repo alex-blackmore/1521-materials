@@ -6,22 +6,17 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "must have at least one argument\n");
         exit(1);
     }
+
     char *pathname = argv[1];
-    FILE *fp = fopen(pathname, "w");
-    if (fp == NULL) {
-        perror(pathname);
-        exit(1);
-    }
+    FILE *file_pointer = fopen(pathname, "a");
 
     int byte = fgetc(stdin);
-    while (byte != '\n' && byte != EOF) {
-        fputc(byte, fp);
+    while (byte != EOF && byte != '\n') {
+        fputc(byte, file_pointer);
         byte = fgetc(stdin);
     }
 
-    fputc('\n', fp);
-
-    fclose(fp);
+    // fprintf(file_pointer, "\n");
 
     return 0;
 }

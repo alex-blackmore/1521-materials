@@ -20,24 +20,9 @@ int main(int argc, char *argv[]) {
 void chmod_if_needed(char *pathname) {
     // stat the file
     struct stat s;
-    int return_code = stat(pathname, &s);
-    if (return_code != 0) {
-        perror("stat");
-        exit(1);
-    }
-    // chmod
-    if (s.st_mode & S_IWOTH) {
-        // bit is set
-        printf("removing public write from %s\n", pathname);
-        mode_t new_mode = s.st_mode & ~S_IWOTH; // write 0 to pwrite bit
-        return_code = chmod(pathname, new_mode);
-        if (return_code != 0) {
-            perror("chmod");
-            exit(1);
-        }
-    } else {
-        // bit is not set
-        printf("%s is not publically writable\n", pathname);
-    }
-    return;
+    stat(pathname, &s);
+    // modify existing permission
+    int new_mode = s.st_mode & ~S_IWOTH;
+    // apply the new permission
+    chmod(pathname, new_mode);
 }

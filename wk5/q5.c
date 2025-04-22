@@ -1,15 +1,14 @@
 #include <stdint.h>
+#include <stdio.h>
 
-// Whether the printer is out of ink
-#define NO_INK (0x1)       // 0b 0000 0001
-// Whether to print/scan in colour
-#define COLOUR (0x2)       // 0b 0000 0010
-// Select print mode
-#define SELECT_PRINT (0x4) // 0b 0000 0100
-// Select scan mode
-#define SELECT_SCAN (0x8)  // 0b 0000 1000
-// Start print/scan
-#define START (0x10)       // 0b 0001 0000
+uint8_t control = 0;    // 0b 0000 0000
+                        // 0b    l bbwr
+
+#define READING   0x01  // 0b 0000 0001 ~READING = 0b 1111 1110
+#define WRITING   0x02  // 0b 0000 0010 ~WRITING = 0b 1111 1101
+#define AS_BYTES  0x04  // 0b 0000 0100
+#define AS_BLOCKS 0x08  // 0b 0000 1000
+#define LOCKED    0x10  // 0b 0001 0000
 
 void print_bits(uint8_t control) {
     for (int i = 0; i < 8; i++) {
@@ -23,26 +22,59 @@ void print_bits(uint8_t control) {
     putchar('\n');
 }
 
-uint8_t check_ink(uint8_t control) {
+uint8_t control = ??:
+if ((control & WRITING)) {
+    // control ????????
+    // mask    00000010
+    // 
+}
+
+uint8_t mark_no_reading(uint8_t control) {
+    // control ????????
+    // mask    11111110
+    // output  ???????0
+    uint8_t output = control & ~READING;
+    return output;
+}
+
+uint8_t mark_reading(uint8_t control) {
+    // control ????????
+    // mask    00000001
+    // output  ???????1
+    uint8_t output = control | READING; // 0b00000001
+}
+
+uint8_t mark_no_writing(uint8_t control) {
 
 }
 
-uint8_t replace_ink(uint8_t control) {
+uint8_t mark_writing(uint8_t control) {
 
 }
 
-uint8_t set_colour_and_scan(uint8_t control) {
+uint8_t mark_unlocked(uint8_t control) {
 
 }
 
-uint8_t toggle_print_scan(uint8_t control) {
-    
+uint8_t mark_locked(uint8_t control) {
+
 }
 
-uint8_t check_ready(uint8_t control) {
-    // Only one mode is selected
+uint8_t switch_read_to_write(uint8_t control) {
 
-    // If print mode, check there is ink
+}
 
-    // Wait for the control to indicate finished (hint: we are never leaving this loop)
+uint8_t switch_write_to_read(uint8_t control) {
+
+}
+
+int main(void) {
+    uint8_t ctrl = 0;
+    print_bits(ctrl); // 00000000
+    ctrl = mark_reading(ctrl);
+    print_bits(ctrl); // 00000001
+    ctrl = mark_locked(ctrl);
+    print_bits(ctrl); // 00010001
+    ctrl = switch_read_to_write(ctrl);
+    print_bits(ctrl); // 00010010
 }

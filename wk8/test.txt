@@ -1,3 +1,4 @@
-hellohello  hello           hellohello
-hello2
-hello3
+i love mips
+any writes go the end
+again
+no newline where is my newline

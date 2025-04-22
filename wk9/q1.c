@@ -8,20 +8,15 @@
 int main(int argc, char *argv[]) {
     // Construct pathname
     // $HOME / .diary
-    char pathname[256];
-    char *home = getenv("HOME");
-
-    snprintf(pathname, 256, "%s/.diary", home);
-
-    FILE *diary_file = fopen(pathname, "r");
-
-    int byte = fgetc(diary_file);
+    char *home_path = getenv("HOME");
+    char buffer[4096];
+    snprintf(buffer, 4096, "%s/.diary", home_path);
+    FILE *fp = fopen(buffer, "r");
+    int byte = fgetc(fp);
     while (byte != EOF) {
         fputc(byte, stdout);
-        byte = fgetc(diary_file);
+        byte = fgetc(fp);
     }
-
-    fclose(diary_file);
-
+    fclose(fp);
     return 0;
 }
