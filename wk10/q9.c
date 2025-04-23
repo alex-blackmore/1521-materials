@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <pthread.h>
 
-int global_total = 0;
-// initialise a lock
 
+int global_total = 0;
+// initialise a lock?
+pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 
 void *add_5000_to_counter(void *data) {
     for (int i = 0; i < 5000; i++) {
@@ -11,7 +12,9 @@ void *add_5000_to_counter(void *data) {
         nanosleep (&(struct timespec){.tv_nsec = 1}, NULL);
         
         // increment the global total by 1
+        pthread_mutex_lock(&lock);
         global_total++;
+        pthread_mutex_unlock(&lock);
 
     }
 

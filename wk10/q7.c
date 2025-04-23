@@ -4,22 +4,25 @@
 #include <pthread.h>
 
 void *thread_run(void *data) {
-    // print "feed me input" once a second
     while (1) {
-        printf("feed me input\n");
         sleep(1);
+        printf("feed me input\n");
     }
+    return NULL;
 }
 
 int main(void) {
-    // read and echo back user input
-    pthread_t pthread;
-    pthread_create(&pthread, NULL, thread_run, NULL);
-    char buffer[1024];
-    while (2) {
-        fgets(buffer, 1024, stdin);
-        printf("%s", buffer);
+    pthread_t p;
+    pthread_create(&p, NULL, thread_run, NULL);
+
+    while (1) {
+        char buffer[1024];
+        scanf("%s", buffer);
+        printf("you entered %s\n", buffer);
     }
-    pthread_cancel(pthread);
+
+    // unreachable
+    void *result;
+    pthread_join(p, &result);
     return 0;
 }

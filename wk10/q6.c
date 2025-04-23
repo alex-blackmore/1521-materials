@@ -5,7 +5,7 @@
 void *thread_run(void *data) {
     printf("I LOVE MIPS!\n");
     int *ret = malloc(sizeof(int));
-    *ret = 0;
+    *ret = 17;
     return ret;
 }
 
@@ -18,5 +18,8 @@ int main(void) {
         NULL        // data we want to pass to the thread -- this will be
                     // given in the `void *data` argument above
     );
+    void *result;
+    pthread_join(thread, &result);
+    printf("thread returned this number: %d\n", *((int*) result));
     return 0;
-}
+} 

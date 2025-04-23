@@ -24,11 +24,11 @@ int main(int argc, char **argv) {
     write(io_proc.input_pipe, argv[1], strlen(argv[1]));
     char buf2[1024] = {0};
     read(io_proc.output_pipe, buf2, strlen(argv[1]) * 2);
-    // expect to see argv1 twice
+    // expect to see argv1 twice (cat will just send back to stdout what it recieves on stdin)
     puts(buf2);
     // close input pipe to signal EOF
     close(io_proc.input_pipe);
-    // close output pipe for good measure
+    // close output pipe for good measure (i dont like leaky code)
     close(io_proc.output_pipe);
     // wait for process to terminate
     waitpid(io_proc.pid, NULL, 0);
@@ -65,9 +65,9 @@ struct piped_io spawn_proc_with_io(char *path) {
         close(input_pipe[1]); // close the writing end of the input pipe (for this process)
         close(output_pipe[0]); // close the reading end of the output pipe (for this process)
 
-        dup2(input_pipe[0], 0); // make stdin file descriptor the same as the read end of the input pipe
-        dup2(output_pipe[1], 1); // make stdout file descriptor the same as write end of the output pipe
-        dup2(output_pipe[1], 2); // make stderr file descriptor the same as write end of the output pipe
+        dup2(input_pipe[0], 0); // make stdin file descriptor (0) the same as the read end of the input pipe
+        dup2(output_pipe[1], 1); // make stdout file descriptor (1) the same as write end of the output pipe
+        dup2(output_pipe[1], 2); // make stderr file descriptor (2) the same as write end of the output pipe
 
         char *argv[] = {path, NULL};
 
